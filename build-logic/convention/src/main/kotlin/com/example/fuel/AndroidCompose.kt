@@ -22,12 +22,11 @@ internal fun Project.configureAndroidCompose(
 
     dependencies {
         val composeBom = libs.findLibrary("androidx.compose.bom").get()
-        add("implementation", platform(composeBom))
         implementation(platform(composeBom))
-//        implementation(libs.findLibrary("androidx.compose.ui").get())
-//        implementation(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+        implementation(libs.findLibrary("androidx.compose.ui").get())
+        debugImplementation(libs.findLibrary("androidx.compose.toolingPreview").get())
         implementation(libs.findLibrary("androidx.compose.material3").get())
-//        implementation(libs.findLibrary("androidx.compose.ui.tooling").get())
+        implementation(libs.findLibrary("androidx.compose.tooling").get())
     }
 
 }

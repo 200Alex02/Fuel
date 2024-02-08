@@ -7,6 +7,20 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.getByType
 
+internal fun Project.version(key: String): String = extensions
+    .getByType<VersionCatalogsExtension>()
+    .named("libs")
+    .findVersion(key)
+    .get()
+    .requiredVersion
+
+internal fun Project.versionInt(key: String) = version(key).toInt()
+
+internal val Project.COMPILE_SDK get() = versionInt("compileSdk")
+internal val Project.MIN_SDK get() = versionInt("minSdk")
+internal val Project.TARGET_SDK get() = versionInt("targetSdk")
+internal val Project.VERSION_CODE get() = versionInt("versionCode")
+
 val Project.libs
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 

@@ -1,9 +1,6 @@
 plugins {
-    `android-library`
-    `kotlin-android`
+    alias(libs.plugins.common.android.library)
 }
-
-apply<MainGradlePlugin>()
 
 android.namespace = "com.feature.map.ui"
 

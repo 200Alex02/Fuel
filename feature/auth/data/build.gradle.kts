@@ -1,9 +1,7 @@
 plugins {
-    `android-library`
-    `kotlin-android`
+    alias(libs.plugins.common.android.library)
+    alias(libs.plugins.common.android.library.compose)
 }
-
-apply<MainGradlePlugin>()
 
 android.namespace = "com.feature.auth"
 

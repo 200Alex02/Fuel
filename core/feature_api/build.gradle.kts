@@ -1,13 +1,12 @@
-plugins {
-    `android-library`
-    `kotlin-android`
-}
 
-apply<MainGradlePlugin>()
+plugins {
+    alias(libs.plugins.common.android.library)
+}
 
 android.namespace = "com.core.feature_api"
 
 dependencies {
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

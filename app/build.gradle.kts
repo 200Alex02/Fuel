@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.common.android.application)
     alias(libs.plugins.common.android.application.compose)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -28,4 +29,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.analytics)
 }

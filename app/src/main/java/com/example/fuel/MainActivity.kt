@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,8 +25,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.fuel.ui.theme.FuelTheme
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +45,7 @@ import java.util.concurrent.TimeUnit
 class MainActivity : ComponentActivity() {
 
     private val auth = FirebaseAuth.getInstance()
+    private var authStatus: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,14 +54,64 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen {phoneNumber ->
+
+                    val navController = rememberNavController()
+
+                    NavHost(
+                        navController = navController,
+                        startDestination = "register"
+                    ) {
+                        composable("register") {
+                            RegisterScreen(
+                                navHostController = navController,
+                                onSignUp = { email, password ->
+                                    signUpWithEmailAnsPassword(email, password)
+                                },
+                                authState = authStatus)
+                        }
+                        composable("login") {
+                            LoginEmailScreen { email, password ->
+                                signInWithEmailAnsPassword(email, password)
+                            }
+                        }
+                    }
+                    /*LoginPhoneScreen { phoneNumber ->
                         sendOtp(phoneNumber)
                         Log.d("tag6", phoneNumber)
-                    }
+                    }*/
 
                 }
             }
         }
+    }
+
+    private fun signInWithEmailAnsPassword(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("tag8", "signInWithEmail:success")
+                    val user = auth.currentUser
+                    Log.d("tag8", user.toString())
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.d("tag8", "signInWithEmail:failure", task.exception)
+                }
+            }
+    }
+
+    private fun signUpWithEmailAnsPassword(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("tag7", "createUserWithEmail:success")
+                    authStatus = true
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.d("tag7", "createUserWithEmail:failure", task.exception)
+                }
+            }
     }
 
     private fun sendOtp(phoneNumber: String) {
@@ -87,7 +146,118 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
+    onSignUp: (String, String) -> Unit,
+    navHostController: NavHostController,
+    authState: Boolean
+) {
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val authStateCom by remember {
+        mutableStateOf(authState)
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize
+            ),
+            text = "Регистрация"
+        )
+        TextField(
+            modifier = Modifier.padding(top = 15.dp),
+            value = email,
+            onValueChange = {
+                email = it
+            },
+            label = { Text(text = "Введите email..") }
+        )
+        TextField(
+            modifier = Modifier.padding(top = 10.dp),
+            value = password,
+            onValueChange = {
+                password = it
+            },
+            label = { Text(text = "Введите password..") }
+        )
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 15.dp),
+            onClick = {
+                onSignUp(email, password)
+                if (authStateCom) {
+                    navHostController.navigate("login")
+                }
+
+            },
+            content = {}
+        )
+    }
+}
+
+@Composable
+fun LoginEmailScreen(
+    onSignIn: (String, String) -> Unit
+) {
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize
+            ),
+            text = "Вход"
+        )
+        TextField(
+            modifier = Modifier.padding(top = 15.dp),
+            value = email,
+            onValueChange = {
+                email = it
+            },
+            label = { Text(text = "Введите email..") }
+        )
+        TextField(
+            modifier = Modifier.padding(top = 10.dp),
+            value = password,
+            onValueChange = {
+                password = it
+            },
+            label = { Text(text = "Введите password..") }
+        )
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 15.dp),
+            onClick = {
+                onSignIn(email, password)
+
+            },
+            content = {}
+        )
+    }
+}
+
+@Composable
+fun LoginPhoneScreen(
     onSignIn: (String) -> Unit
 ) {
     var phoneNumber by remember { mutableStateOf("") }

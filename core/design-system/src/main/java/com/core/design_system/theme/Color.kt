@@ -1,4 +1,4 @@
-package com.example.fuel.ui.theme
+package com.core.design_system.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -26,6 +26,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:design-system"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

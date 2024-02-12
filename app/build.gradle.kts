@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.common.android.application)
     alias(libs.plugins.common.android.application.compose)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.common.android.dagger)
 }
 
 android {

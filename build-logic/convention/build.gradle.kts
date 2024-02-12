@@ -25,5 +25,9 @@ gradlePlugin {
             id = "fuel.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidDaggerConventionPlugin") {
+            id = "fuel.android.dagger"
+            implementationClass = "AndroidDaggerConventionPlugin"
+        }
     }
 }

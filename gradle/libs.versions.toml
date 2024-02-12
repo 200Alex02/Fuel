@@ -57,6 +57,9 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx", ver
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 
 #jetpackcompose
+dagger-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
@@ -67,6 +70,7 @@ androidx-compose-constraintLayout = { module = "androidx.constraintlayout:constr
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "composeActivity" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "composeCoil" }
+
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat-appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "com-google-android-material-material" }
@@ -74,6 +78,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 [plugins]
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -83,3 +88,4 @@ common-android-library-compose = { id = "fuel.android.library.compose", version 
 common-android-application-compose = { id = "fuel.android.application.compose", version = "unspecified" }
 common-android-application = { id = "fuel.android.application", version = "unspecified" }
 common-android-library = { id = "fuel.android.library", version = "unspecified" }
+common-android-dagger = { id = "fuel.android.dagger", version = "unspecified" }

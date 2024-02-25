@@ -65,7 +65,7 @@ private val paddings = AppPaddings(
 )
 
 @Composable
-internal fun AppTheme(
+fun AppTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -90,15 +90,15 @@ internal fun AppTheme(
 }
 
 object AppTheme {
-    internal val colorScheme: AppColors
+    val colorScheme: AppColors
         @Composable get() = LocalAppColors.current
 
-    internal val typography: AppTypography
+    val typography: AppTypography
         @Composable get() = LocalAppTypography.current
 
-    internal val shapes: AppShapes
+    val shapes: AppShapes
         @Composable get() = LocalAppShapes.current
 
-    internal val paddings: AppPaddings
+    val paddings: AppPaddings
         @Composable get() = LocalAppPaddings.current
 }

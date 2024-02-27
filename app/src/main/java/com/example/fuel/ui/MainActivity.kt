@@ -1,4 +1,4 @@
-package com.example.fuel
+package com.example.fuel.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

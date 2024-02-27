@@ -6,6 +6,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -27,3 +30,6 @@ include(":core:common")
 include(":core:feature_api")
 include(":core:design-system")
 include(":feature:auth")
+include(":feature:sign-up:data")
+include(":feature:sign-up:domain")
+include(":feature:sign-up:ui")

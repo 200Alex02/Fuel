@@ -42,7 +42,7 @@ androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.10.0"
-coroutines = "1.7.3"
+kotlinx-coroutines = "1.7.3"
 core-ktx = "1.12.0"
 androidx-appcompat-appcompat = "1.6.1"
 com-google-android-material-material = "1.11.0"
@@ -82,6 +82,9 @@ compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "composeCoil"
 #decompose
 arkivanov-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 arkivanov-decompose-extensionsCompose = { group = "com.arkivanov.decompose", name = "extensions-compose-jetpack", version.ref = "decompose" }
+
+#coroutines
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat-appcompat" }

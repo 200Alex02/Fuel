@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_up">Sign Up</string>
+    <string name="fill_info">Please fill the all information</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="repeated_password">RepeatedPassword</string>
+</resources>

@@ -2,4 +2,5 @@
 <resources>
     <string name="sign_in">SingIn</string>
     <string name="sign_up">SingUp</string>
+
 </resources>

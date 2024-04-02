@@ -27,7 +27,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:design-system"))
+    implementation(projects.core.designSystem)
+    implementation(projects.feature.root)
+    implementation(projects.feature.auth)
+    implementation(projects.feature.signUp.ui)
+    implementation(projects.feature.signUp.data)
+    implementation(projects.feature.signUp.domain)
+    implementation(projects.feature.start)
+
+    implementation(libs.arkivanov.decompose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)

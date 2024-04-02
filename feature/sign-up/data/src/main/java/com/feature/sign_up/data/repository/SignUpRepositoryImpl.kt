@@ -6,7 +6,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
-internal class SignUpRepositoryImpl @Inject constructor(
+class SignUpRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ) : SignUpRepository {
 

@@ -30,6 +30,6 @@ interface SignUpComponent {
             componentContext: ComponentContext,
             onSignUpClick: () -> Unit,
             onBackClick: () -> Unit
-        )
+        ): SignUpComponent
     }
 }

@@ -3,22 +3,23 @@ package com.feature.sign_up.ui.components
 import com.arkivanov.decompose.ComponentContext
 import com.core.common.extension.componentCoroutineScope
 import com.core.common.util.Response
-import com.feature.sign_up.domain.use_case.SignUpUseCase
+import com.feature.sign_up.domain.use_case.SignUpUseCase1
 import com.feature.sign_up.ui.state.SignUpState
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
-class RealSignUpComponent @AssistedInject constructor(
+class RealSignUpComponent @AssistedInject internal constructor(
     @Assisted componentContext: ComponentContext,
     @Assisted("onSignUpClick")
     private val onSignUpClick: () -> Unit,
     @Assisted("onBackClick")
     private val onBackClick: () -> Unit,
-    private val signUpUseCase: SignUpUseCase
+    private val signUpUseCase1: SignUpUseCase1
 ) : SignUpComponent, ComponentContext by componentContext {
 
     private val coroutineScope = componentCoroutineScope()
@@ -52,7 +53,7 @@ class RealSignUpComponent @AssistedInject constructor(
     }
 
     fun signUpWithEmailAndPassword() {
-        signUpUseCase(email.value, password.value)
+        signUpUseCase1(email.value, password.value)
             .onEach { result ->
                 when (result) {
                     is Response.Loading -> {
@@ -68,5 +69,14 @@ class RealSignUpComponent @AssistedInject constructor(
                     }
                 }
             }.launchIn(coroutineScope)
+    }
+
+    @AssistedFactory
+    interface Factory: SignUpComponent.Factory {
+        override fun invoke(
+            componentContext: ComponentContext,
+            @Assisted("onSignUpClick") onSignUpClick: () -> Unit,
+            @Assisted("onBackClick") onBackClick: () -> Unit
+        ): RealSignUpComponent
     }
 }

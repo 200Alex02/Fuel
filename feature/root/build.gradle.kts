@@ -6,22 +6,16 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-android.namespace = "com.feature.sign_up.ui"
+android.namespace = "com.feature.root"
 
 dependencies {
-
-    implementation(projects.core.designSystem)
-    implementation(projects.feature.signUp.domain)
+    implementation(projects.feature.auth)
+    implementation(projects.feature.signUp.ui)
+    implementation(projects.feature.start)
     implementation(projects.core.common)
-    implementation(projects.feature.signUp.data)
 
     implementation(libs.arkivanov.decompose.extensionsCompose)
     implementation(libs.arkivanov.decompose)
 
     implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

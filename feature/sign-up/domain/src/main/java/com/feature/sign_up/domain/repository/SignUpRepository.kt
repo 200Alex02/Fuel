@@ -4,7 +4,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 
 
-interface SignUpRepository {
+interface SignUpRepository  {
 
     suspend fun signUpWithEmailAndPassword(email: String, password: String): Task<AuthResult>
 }

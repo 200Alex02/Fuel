@@ -20,4 +20,5 @@ class FakeSignUpComponent : SignUpComponent {
     override fun onSignUpClick() = Unit
 
     override fun onBackClick() = Unit
+    override fun signUpWithEmailAndPassword() = Unit
 }

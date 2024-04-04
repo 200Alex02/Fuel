@@ -24,6 +24,8 @@ interface SignUpComponent {
 
     fun onBackClick()
 
+    fun signUpWithEmailAndPassword()
+
     fun interface Factory {
 
         operator fun invoke(

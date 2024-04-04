@@ -47,7 +47,7 @@ fun SignUpContent(component: SignUpComponent) {
             )
             Text(
                 text = stringResource(id = R.string.fill_info),
-                style = AppTheme.typography.body,
+                style = AppTheme.typography.titleSmall,
                 color = AppTheme.colorScheme.primaryText,
                 fontWeight = FontWeight.Bold
             )
@@ -82,6 +82,7 @@ fun SignUpContent(component: SignUpComponent) {
             AuthButton(
                 title = stringResource(id = R.string.sign_up),
                 onClick = {
+                    component.signUpWithEmailAndPassword()
                     component.onSignUpClick()
                 },
                 loading = state.value.isLoading,

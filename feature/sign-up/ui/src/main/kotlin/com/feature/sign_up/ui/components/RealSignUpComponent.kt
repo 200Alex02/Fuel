@@ -3,7 +3,7 @@ package com.feature.sign_up.ui.components
 import com.arkivanov.decompose.ComponentContext
 import com.core.common.extension.componentCoroutineScope
 import com.core.common.util.Response
-import com.feature.sign_up.domain.use_case.SignUpUseCase1
+import com.feature.sign_up.domain.use_case.SignUpUseCase
 import com.feature.sign_up.ui.state.SignUpState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -19,7 +19,7 @@ class RealSignUpComponent @AssistedInject internal constructor(
     private val onSignUpClick: () -> Unit,
     @Assisted("onBackClick")
     private val onBackClick: () -> Unit,
-    private val signUpUseCase1: SignUpUseCase1
+    private val signUpUseCase: SignUpUseCase
 ) : SignUpComponent, ComponentContext by componentContext {
 
     private val coroutineScope = componentCoroutineScope()
@@ -52,8 +52,8 @@ class RealSignUpComponent @AssistedInject internal constructor(
         onBackClick.invoke()
     }
 
-    fun signUpWithEmailAndPassword() {
-        signUpUseCase1(email.value, password.value)
+    override fun signUpWithEmailAndPassword() {
+        signUpUseCase(email.value, password.value)
             .onEach { result ->
                 when (result) {
                     is Response.Loading -> {

@@ -1,7 +1,7 @@
 package com.feature.sign_up.domain.di;
 
 import com.feature.sign_up.domain.repository.SignUpRepository;
-import com.feature.sign_up.domain.use_case.SignUpUseCase1;
+import com.feature.sign_up.domain.use_case.SignUpUseCase;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.Preconditions;
@@ -23,7 +23,7 @@ import javax.inject.Provider;
     "KotlinInternal",
     "KotlinInternalInJava"
 })
-public final class DomainLayerModule_ProvideSignUpUseCaseFactory implements Factory<SignUpUseCase1> {
+public final class DomainLayerModule_ProvideSignUpUseCaseFactory implements Factory<SignUpUseCase> {
   private final DomainLayerModule module;
 
   private final Provider<SignUpRepository> signUpRepositoryProvider;
@@ -35,7 +35,7 @@ public final class DomainLayerModule_ProvideSignUpUseCaseFactory implements Fact
   }
 
   @Override
-  public SignUpUseCase1 get() {
+  public SignUpUseCase get() {
     return provideSignUpUseCase(module, signUpRepositoryProvider.get());
   }
 
@@ -44,7 +44,7 @@ public final class DomainLayerModule_ProvideSignUpUseCaseFactory implements Fact
     return new DomainLayerModule_ProvideSignUpUseCaseFactory(module, signUpRepositoryProvider);
   }
 
-  public static SignUpUseCase1 provideSignUpUseCase(DomainLayerModule instance,
+  public static SignUpUseCase provideSignUpUseCase(DomainLayerModule instance,
       SignUpRepository signUpRepository) {
     return Preconditions.checkNotNullFromProvides(instance.provideSignUpUseCase(signUpRepository));
   }

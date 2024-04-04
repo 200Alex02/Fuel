@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="sign_in">SingIn</string>
-    <string name="sign_up">SingUp</string>
+    <string name="sign_in">Sing In</string>
+    <string name="sign_up">Sing Up</string>
+    <string name="app_label">FUEL</string>
+    <string name="label_description">World gas station</string>
 
 </resources>

@@ -3,8 +3,13 @@ package com.feature.sign_up.ui.components
 import com.arkivanov.decompose.ComponentContext
 import com.core.common.extension.componentCoroutineScope
 import com.core.common.util.Response
-import com.feature.sign_up.domain.use_case.SignUpUseCase1
+import com.feature.sign_up.domain.use_case.SignUpUseCase
+import com.feature.sign_up.domain.use_case.ValidateEmailUseCase
+import com.feature.sign_up.domain.use_case.ValidatePasswordUseCase
+import com.feature.sign_up.domain.use_case.ValidateRepeatedPasswordUseCase
 import com.feature.sign_up.ui.state.SignUpState
+import com.feature.sign_up.ui.state.ValidateEvent
+import com.feature.sign_up.ui.state.ValidateState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -19,41 +24,80 @@ class RealSignUpComponent @AssistedInject internal constructor(
     private val onSignUpClick: () -> Unit,
     @Assisted("onBackClick")
     private val onBackClick: () -> Unit,
-    private val signUpUseCase1: SignUpUseCase1
+    @Assisted("onSignInClick")
+    private val onSignInClick: () -> Unit,
+    private val signUpUseCase: SignUpUseCase,
+    private val validateEmailUseCase: ValidateEmailUseCase,
+    private val validatePasswordUseCase: ValidatePasswordUseCase,
+    private val validateRepeatedPasswordUseCase: ValidateRepeatedPasswordUseCase
 ) : SignUpComponent, ComponentContext by componentContext {
 
     private val coroutineScope = componentCoroutineScope()
 
     override val signUpState = MutableStateFlow(SignUpState())
 
-    override val email = MutableStateFlow("")
+    override val formState = MutableStateFlow(ValidateState())
 
-    override val password = MutableStateFlow("")
+    override fun onEvent(event: ValidateEvent) {
+        when (event) {
+            is ValidateEvent.EmailChanged -> {
+                formState.update { it.copy(email = event.email) }
+                validEmail()
+            }
 
-    override val repeatedPassword = MutableStateFlow("")
+            is ValidateEvent.PasswordChanged -> {
+                formState.update { it.copy(password = event.password) }
+                validPassword()
+            }
 
-    override fun onEmailChanged(email: String) {
-        this.email.value = email
+            is ValidateEvent.RepeatedPasswordChanged -> {
+                formState.update { it.copy(repeatedPassword = event.repeatedPassword) }
+                validRepeatedPassword()
+            }
+
+            is ValidateEvent.Submit -> {
+                if (validEmail() && validPassword() && validRepeatedPassword()) {
+                    signUpWithEmailAndPassword()
+                }
+            }
+        }
     }
 
-    override fun onPasswordChanged(password: String) {
-        this.password.value = password
+    private fun validEmail(): Boolean {
+        val emailResult = validateEmailUseCase.execute(formState.value.email)
+        formState.update { it.copy(errorEmail = emailResult.errorMessage) }
+        return emailResult.successful
     }
 
-    override fun onRepeatedPasswordChanged(repeatedPassword: String) {
-        this.repeatedPassword.value = repeatedPassword
+    private fun validPassword(): Boolean {
+        val passwordResult = validatePasswordUseCase.execute(formState.value.password)
+        formState.update { it.copy(errorPassword = passwordResult.errorMessage) }
+        return passwordResult.successful
+    }
+
+    private fun validRepeatedPassword(): Boolean {
+        val repeatedPasswordResult = validateRepeatedPasswordUseCase.execute(
+            password = formState.value.password,
+            repeatedPassword = formState.value.repeatedPassword
+        )
+        formState.update { it.copy(errorRepeatedPassword = repeatedPasswordResult.errorMessage) }
+        return repeatedPasswordResult.successful
     }
 
     override fun onSignUpClick() {
         onSignUpClick.invoke()
     }
 
+    override fun onSignInClick() {
+        onSignInClick.invoke()
+    }
+
     override fun onBackClick() {
         onBackClick.invoke()
     }
 
-    fun signUpWithEmailAndPassword() {
-        signUpUseCase1(email.value, password.value)
+    private fun signUpWithEmailAndPassword() {
+        signUpUseCase(email = formState.value.email, password = formState.value.password)
             .onEach { result ->
                 when (result) {
                     is Response.Loading -> {
@@ -66,17 +110,19 @@ class RealSignUpComponent @AssistedInject internal constructor(
 
                     is Response.Success -> {
                         signUpState.update { it.copy(isLoading = false, success = true) }
+                        onSignInClick.invoke()
                     }
                 }
             }.launchIn(coroutineScope)
     }
 
     @AssistedFactory
-    interface Factory: SignUpComponent.Factory {
+    interface Factory : SignUpComponent.Factory {
         override fun invoke(
             componentContext: ComponentContext,
             @Assisted("onSignUpClick") onSignUpClick: () -> Unit,
-            @Assisted("onBackClick") onBackClick: () -> Unit
+            @Assisted("onBackClick") onBackClick: () -> Unit,
+            @Assisted("onSignInClick") onSignInClick: () -> Unit
         ): RealSignUpComponent
     }
 }

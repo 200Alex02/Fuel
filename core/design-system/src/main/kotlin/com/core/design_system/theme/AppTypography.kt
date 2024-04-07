@@ -6,6 +6,7 @@ import androidx.compose.ui.text.TextStyle
 
 @Stable
 data class AppTypography(
+    val labelLarge: TextStyle,
     val titleLarge: TextStyle,
     val titleMedium: TextStyle,
     val titleSmall: TextStyle,

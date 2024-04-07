@@ -1,6 +1,7 @@
 package com.core.design_system.theme
 
 import android.app.Activity
+import android.view.WindowManager
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -18,17 +19,23 @@ private val darkColors = AppColors(
     statusBar = lightStatusBarColor,
     primaryText = lightPrimaryTextColor,
     surface = lightSurfaceColor,
-    error = lightErrorColor
+    error = lightErrorColor,
+    authText = lightAuthTextColor
 )
 
 private val lightColors = AppColors(
     statusBar = darkStatusBarColor,
     primaryText = darkPrimaryTextColor,
     surface = darkSurfaceColor,
-    error = darkErrorColor
+    error = darkErrorColor,
+    authText = darkAuthTextColor
 )
 
 private val typography = AppTypography(
+    labelLarge = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 50.sp
+    ),
     titleLarge = TextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp
@@ -60,7 +67,16 @@ private val paddings = AppPaddings(
     small = 4.dp,
     medium = 8.dp,
     large = 12.dp,
-    extraLarge = 24.dp
+    extraLarge = 24.dp,
+    extraBig = 100.dp
+)
+
+private val space = AppSpace(
+    extraSmall = 8.dp,
+    small = 15.dp,
+    medium = 25.dp,
+    large = 50.dp,
+    extraLarge = 100.dp
 )
 
 @Composable
@@ -74,6 +90,10 @@ fun AppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
             window.statusBarColor = colorScheme.statusBar.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = isDarkTheme
         }
@@ -84,6 +104,7 @@ fun AppTheme(
         LocalAppPaddings provides paddings,
         LocalAppShapes provides shapes,
         LocalAppTypography provides typography,
+        LocalAppSpace provides space,
         content = content
     )
 }
@@ -100,4 +121,7 @@ object AppTheme {
 
     val paddings: AppPaddings
         @Composable get() = LocalAppPaddings.current
+
+    val space: AppSpace
+        @Composable get() = LocalAppSpace.current
 }

@@ -65,7 +65,10 @@ class RealAuthComponent @AssistedInject internal constructor(
             onSignUpClick = {
                 onHomeScreen()
             },
-            onBackClick = navigation::pop
+            onBackClick = navigation::pop,
+            onSignInClick = {
+
+            }
         )
 
     @Serializable

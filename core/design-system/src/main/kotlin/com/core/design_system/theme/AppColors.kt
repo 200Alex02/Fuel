@@ -9,8 +9,8 @@ data class AppColors(
     val statusBar: Color,
     val primaryText: Color,
     val surface: Color,
-    val error: Color
-    //etc.
+    val error: Color,
+    val authText: Color
 )
 
 internal val LocalAppColors = staticCompositionLocalOf<AppColors> {

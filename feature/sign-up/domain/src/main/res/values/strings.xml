@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="strTheEmailCanNotBeBlank">The email can\'t be blank</string>
+    <string name="strThatsNotAValidEmail">That\'s not a valid email</string>
+
+    <string name="strThePasswordCanNotBeBlank">The password can\'t be blank</string>
+    <string name="strThatsNotAValidPassword">That\'s not a valid password</string>
+
+    <string name="strTheRepeatedPasswordCanNotBeBlank">The repeatedPassword can\'t be blank</string>
+    <string name="strThatsNotAValidRepeatedPassword">That\'s not a valid repeatedPassword</string>
+</resources>

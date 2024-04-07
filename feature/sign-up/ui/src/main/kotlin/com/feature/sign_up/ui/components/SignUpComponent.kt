@@ -2,36 +2,31 @@ package com.feature.sign_up.ui.components
 
 import com.arkivanov.decompose.ComponentContext
 import com.feature.sign_up.ui.state.SignUpState
+import com.feature.sign_up.ui.state.ValidateEvent
+import com.feature.sign_up.ui.state.ValidateState
 import kotlinx.coroutines.flow.StateFlow
 
 interface SignUpComponent {
 
     val signUpState: StateFlow<SignUpState>
 
-    val email: StateFlow<String>
+    val formState: StateFlow<ValidateState>
 
-    val password: StateFlow<String>
-
-    val repeatedPassword: StateFlow<String>
-
-    fun onEmailChanged(email: String)
-
-    fun onPasswordChanged(password: String)
-
-    fun onRepeatedPasswordChanged(repeatedPassword: String)
+    fun onEvent(event: ValidateEvent)
 
     fun onSignUpClick()
 
-    fun onBackClick()
+    fun onSignInClick()
 
-    fun signUpWithEmailAndPassword()
+    fun onBackClick()
 
     fun interface Factory {
 
         operator fun invoke(
             componentContext: ComponentContext,
             onSignUpClick: () -> Unit,
-            onBackClick: () -> Unit
+            onBackClick: () -> Unit,
+            onSignInClick: () -> Unit
         ): SignUpComponent
     }
 }

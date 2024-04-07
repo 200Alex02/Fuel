@@ -15,13 +15,17 @@ fun EmailTextField(
     value: String,
     onValueChanged: (String) -> Unit,
     modifier: Modifier,
-    @StringRes placeholder: Int
+    @StringRes labelText: Int,
+    @StringRes placeholder: Int,
+    isError: Boolean = false
 ) {
     OutlinedTextField(
         modifier = modifier,
         value = value,
         onValueChange = {onValueChanged(it)},
         singleLine = true,
+        isError = isError,
+        label = { Text(text = stringResource(id = labelText)) },
         placeholder = { Text(text = stringResource(id = placeholder)) },
         leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "Email") }
     )

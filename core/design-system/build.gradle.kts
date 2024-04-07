@@ -6,4 +6,7 @@ plugins {
 
 android { namespace = "com.core.design_system" }
 
-dependencies {}
+dependencies {
+
+    implementation(projects.core.common)
+}

@@ -19,14 +19,16 @@ private val darkColors = AppColors(
     statusBar = lightStatusBarColor,
     primaryText = lightPrimaryTextColor,
     surface = lightSurfaceColor,
-    error = lightErrorColor
+    error = lightErrorColor,
+    authText = lightAuthTextColor
 )
 
 private val lightColors = AppColors(
     statusBar = darkStatusBarColor,
     primaryText = darkPrimaryTextColor,
     surface = darkSurfaceColor,
-    error = darkErrorColor
+    error = darkErrorColor,
+    authText = darkAuthTextColor
 )
 
 private val typography = AppTypography(

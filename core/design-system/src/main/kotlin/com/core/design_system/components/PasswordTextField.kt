@@ -26,7 +26,9 @@ fun PasswordTextField(
     value: String,
     onValueChanged: (String) -> Unit,
     modifier: Modifier,
+    @StringRes labelText: Int,
     @StringRes placeholder: Int,
+    isError: Boolean = false
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
@@ -40,6 +42,8 @@ fun PasswordTextField(
         modifier = modifier,
         value = value,
         onValueChange = { onValueChanged(it) },
+        isError = isError,
+        label = { Text(text = stringResource(id = labelText)) },
         placeholder = { Text(text = stringResource(id = placeholder)) },
         leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "Lock") },
         trailingIcon = {
@@ -50,5 +54,4 @@ fun PasswordTextField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = visualTransformation
     )
-
 }
